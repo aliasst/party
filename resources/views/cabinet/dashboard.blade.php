@@ -20,15 +20,9 @@
                             </div>
                             <div class="event-title">Заказчики</div>
                             <div class="event-actions">
-                                <a href="" type="button" class="blue-btn blue-btn-small">
-                                    Смотреть
-                                </a>
-                                <a href="" type="button" class="blue-btn-rev blue-btn-small">
-                                    Добавить
-                                </a>
-                                <a href="" type="button" class="blue-btn-rev blue-btn-small">
-                                    Редактировать
-                                </a>
+                                <a href="{{ route('cabinet.clients.index') }}" type="button" class="blue-btn blue-btn-small">Смотреть</a>
+                                <a href="{{ route('cabinet.clients.create') }}" type="button" class="blue-btn-rev blue-btn-small">Добавить</a>
+                                <a href="{{ route('cabinet.clients.index') }}" type="button" class="blue-btn-rev blue-btn-small">Редактировать</a>
                             </div>
 
 
@@ -61,7 +55,7 @@
 
 
                             </div>
-                            <div class="event-title">Главные админы</div>
+                            <div class="event-title">Админы</div>
                             <div class="event-actions">
                                 <a type="button" href="{{ route('cabinet.admins.index') }}" class="blue-btn blue-btn-small">Смотреть</a>
                                 <a type="button" href="{{ route('cabinet.admins.create') }}" class="blue-btn-rev blue-btn-small">Добавить</a>

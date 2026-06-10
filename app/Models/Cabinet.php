@@ -30,4 +30,7 @@ class Cabinet extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+
+
 }

@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $fillable = ['cabinet_id', 'name', 'email', 'phone', 'company', 'address'];
+    use HasFactory;
+
+    protected $fillable = [
+        'cabinet_id', 'name', 'legal_name', 'email', 'phone', 'requisites'
+    ];
 
     public function cabinet()
     {
@@ -15,6 +20,6 @@ class Client extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'client_event');
     }
 }
