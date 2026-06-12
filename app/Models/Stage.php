@@ -37,4 +37,19 @@ class Stage extends Model
     {
         return $this->hasMany(StageFile::class);
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($stage) {
+            if ($stage->event) {
+                $stage->event->updateProgressPercent();
+            }
+        });
+
+        static::deleted(function ($stage) {
+            if ($stage->event) {
+                $stage->event->updateProgressPercent();
+            }
+        });
+    }
 }

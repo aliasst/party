@@ -11,6 +11,8 @@ use App\Http\Controllers\Cabinet\PurchaseController;
 use App\Http\Controllers\Cabinet\ReportController;
 use App\Http\Controllers\Cabinet\StageController;
 use App\Http\Controllers\SuperAdmin\CabinetController as SuperAdminCabinetController;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboardController;
+use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Http\Controllers\Cabinet\DashboardController;
 use App\Http\Controllers\Cabinet\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,12 @@ Route::middleware(['auth', 'superadmin'])->prefix('superadmin')->name('superadmi
     Route::delete('/cabinets/{cabinet}', [SuperAdminCabinetController::class, 'destroy'])->name('cabinets.destroy');
 });
 
+// Суперадминские маршруты без контекста кабинета
+Route::middleware(['auth', 'superadmin'])->prefix('super')->name('super.')->group(function () {
+    Route::get('/dashboard', [SuperAdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('superadmins', SuperAdminController::class)->except(['show']);
+});
+
 // Основные маршруты кабинета (требуют контекст)
 Route::middleware(['auth', 'cabinet.context'])->prefix('cabinet')->name('cabinet.')->group(function () {
     // Дашборд
@@ -57,14 +65,7 @@ Route::middleware(['auth', 'cabinet.context'])->prefix('cabinet')->name('cabinet
     Route::put('/admins/{admin}', [AdminController::class, 'update'])->name('admins.update');
     Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->name('admins.destroy');
 
-//    // Заказчики
-//    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-//    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create');
-//    Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
-//    Route::get('/clients/{client}/edit', [ClientController::class, 'edit'])->name('clients.edit');
-//    Route::put('/clients/{client}', [ClientController::class, 'update'])->name('clients.update');
-//    Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
-//
+
     // Мероприятия
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -73,6 +74,7 @@ Route::middleware(['auth', 'cabinet.context'])->prefix('cabinet')->name('cabinet
     Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/events/{event}/tz', [EventController::class, 'showTz'])->name('events.show_tz');
 
     // Маршруты для счетов (вложенные в мероприятия)
     Route::prefix('events/{event}/invoices')->name('events.invoices.')->group(function () {

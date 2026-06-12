@@ -143,6 +143,14 @@ class EventController extends Controller
             ->with('success', 'Мероприятие обновлено.');
     }
 
+    public function showTz(Request $request, Event $event)
+    {
+        $cabinet = $request->attributes->get('cabinet');
+        if ($event->cabinet_id != $cabinet->id) abort(404);
+
+        return view('cabinet.events.show_tz', compact('event'));
+    }
+
     /**
      * Удаление мероприятия.
      */

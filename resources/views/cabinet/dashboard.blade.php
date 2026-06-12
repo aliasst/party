@@ -6,6 +6,23 @@
 
     <section id="" class="cabinet-section cabinet-section-dashboard cabinet-actions-section-h-center">
         <div class="container">
+
+            @auth
+                @if(auth()->user()->isSuperAdmin())
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="back-log">
+                                    <div class="back-link">
+                                        <a class="btn-link btn-backlink" href="{{ route('superadmin.cabinets.index') }}">Вернуться назад</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                @endif
+            @endauth
+
+
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="cabinet-title-section">

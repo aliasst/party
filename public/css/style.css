@@ -2298,13 +2298,27 @@ order:0;
 
 .actions-row {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	flex-wrap:wrap ;
 }
 
 .actions-item {
 	width:32%;
+    margin:0 1%;
 }
+
+.actions-item:first-child {
+    margin-left:0;
+}
+
+.actions-item:last-child {
+    margin-right:0;
+}
+
+
+
+
+
 .actions-prew {
     background: linear-gradient(90deg, #5790ff 96%);
     border-radius: 25px;
@@ -2904,14 +2918,14 @@ table.requests td {
 
 .progress-wrap-m {
 
-    background: rgb(237, 86, 74);
+    background: #8ab1ff;
     margin: 20px 0;
     overflow: hidden;
     position: relative;
     border-radius: 1000px;
 }
 .progress-wrap-m .progress-bar-m {
-    background: #5790FF;
+    background: #8ab1ff;
     border-radius:1000px;
     left: 0;
     position: absolute;

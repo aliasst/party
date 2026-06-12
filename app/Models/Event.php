@@ -13,7 +13,7 @@ class Event extends Model
 
     protected $fillable = [
         'cabinet_id', 'title', 'cover', 'description',
-        'start_date', 'end_date', 'status'
+        'start_date', 'end_date', 'status', 'progress_percent'
     ];
 
     protected $casts = [
@@ -36,6 +36,7 @@ class Event extends Model
                 Storage::disk('public')->delete($event->cover);
             }
         });
+
     }
 
     // Отношения
@@ -59,14 +60,16 @@ class Event extends Model
         return $this->hasMany(Report::class);
     }
 
-    public function stages()
-    {
-        return $this->hasMany(Stage::class)->whereNull('parent_id')->orderBy('sort_order');
-    }
-
+    // Все этапы (родительские + дочерние) для подсчётов
     public function allStages()
     {
         return $this->hasMany(Stage::class);
+    }
+
+    // Только корневые этапы с детьми (для иерархического вывода)
+    public function stages()
+    {
+        return $this->hasMany(Stage::class)->whereNull('parent_id')->with('children');
     }
 
     public function contractors()
@@ -100,4 +103,18 @@ class Event extends Model
             }
         }
     }
+
+
+    // Обновление процента завершённости
+    public function updateProgressPercent()
+    {
+        $total = $this->allStages()->count();
+        $completed = $this->allStages()->where('status', 'completed')->count();
+        $percent = $total ? round(($completed / $total) * 100) : 0;
+        $this->updateQuietly(['progress_percent' => $percent]);
+    }
+
+
+
+
 }

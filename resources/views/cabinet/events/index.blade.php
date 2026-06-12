@@ -56,7 +56,7 @@
                                 <a href="{{ route('cabinet.events.edit', $event) }}" type="button" class="blue-btn blue-btn-small">
                                     Подробнее
                                 </a>
-                                <a href="{{ route('cabinet.events.edit', $event) }}" type="button" class="blue-btn-rev blue-btn-small">
+                                <a href="{{ route('cabinet.events.show_tz', $event) }}" type="button" class="blue-btn-rev blue-btn-small">
                                     Смотреть ТЗ заказчика
                                 </a>
                                 <a href="{{ route('cabinet.events.show', $event) }}" type="button" class="blue-btn-rev blue-btn-small">

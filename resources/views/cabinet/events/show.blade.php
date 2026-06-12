@@ -33,9 +33,9 @@
                 <div class="col-12">
 
                     <div class="progress-section">
-                        <div class="progress-cell">Статус Ремонта: 0 %</div>
+                        <div class="progress-cell">Статус организации мероприятия: {{ $event->progress_percent }} %</div>
 
-                        <div class="progress-wrap-m progress-m" data-progress-percent="">
+                        <div class="progress-wrap-m progress-m" data-progress-percent="{{ $event->progress_percent }}">
                             <div class="progress-bar-m progress-m"></div>
                         </div>
                     </div>
